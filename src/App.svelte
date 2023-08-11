@@ -3,7 +3,9 @@
 </script>
 
 <style>
-	
+	main {
+    	padding: var(--spacingLarge);
+  	}
 </style>
 
 <main>

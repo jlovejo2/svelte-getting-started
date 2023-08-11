@@ -1,6 +1,6 @@
 
 (function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
-var app = (function (lifecycle) {
+var app = (function () {
     'use strict';
 
     function noop() { }
@@ -129,6 +129,23 @@ var app = (function (lifecycle) {
     let current_component;
     function set_current_component(component) {
         current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error('Function called outside component initialization');
+        return current_component;
+    }
+    /**
+     * The `onMount` function schedules a callback to run as soon as the component has been mounted to the DOM.
+     * It must be called during the component's initialisation (but doesn't need to live *inside* the component;
+     * it can be called from an external module).
+     *
+     * `onMount` does not run inside a [server-side component](/docs#run-time-server-side-component-api).
+     *
+     * https://svelte.dev/docs#run-time-svelte-onmount
+     */
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
     }
 
     const dirty_components = [];
@@ -1174,13 +1191,13 @@ var app = (function (lifecycle) {
     			t6 = space();
     			create_component(bookgrid.$$.fragment);
     			attr_dev(span, "class", "preamble svelte-421zze");
-    			add_location(span, file$1, 36, 4, 774);
+    			add_location(span, file$1, 36, 4, 744);
     			attr_dev(h1, "class", "svelte-421zze");
-    			add_location(h1, file$1, 37, 4, 824);
+    			add_location(h1, file$1, 37, 4, 794);
     			attr_dev(header, "class", "svelte-421zze");
-    			add_location(header, file$1, 35, 0, 761);
+    			add_location(header, file$1, 35, 0, 731);
     			attr_dev(p, "class", "greeting svelte-421zze");
-    			add_location(p, file$1, 40, 4, 856);
+    			add_location(p, file$1, 40, 4, 826);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1248,7 +1265,7 @@ var app = (function (lifecycle) {
     	validate_slots('Library', slots, []);
     	let books = [];
 
-    	lifecycle.onMount(async function () {
+    	onMount(async function () {
     		const { data } = await httpGet("/?_sort=id&_order=desc'");
     		console.log(data);
     		$$invalidate(0, books = data);
@@ -1261,7 +1278,7 @@ var app = (function (lifecycle) {
     	});
 
     	$$self.$capture_state = () => ({
-    		onMount: lifecycle.onMount,
+    		onMount,
     		Button,
     		BookGrid,
     		httpGet,
@@ -1306,7 +1323,8 @@ var app = (function (lifecycle) {
     		c: function create() {
     			main = element("main");
     			create_component(library.$$.fragment);
-    			add_location(main, file, 8, 0, 85);
+    			attr_dev(main, "class", "svelte-15bbmgf");
+    			add_location(main, file, 10, 0, 131);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1373,11 +1391,11 @@ var app = (function (lifecycle) {
     const app = new App({
     	target: document.body,
     	props: {
-    		name: 'world'
+    		name: 'World'
     	}
     });
 
     return app;
 
-})(lifecycle);
+})();
 //# sourceMappingURL=bundle.js.map

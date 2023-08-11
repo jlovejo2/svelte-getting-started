@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte/types/runtime/internal/lifecycle";
+    import { onMount } from "svelte";
     import Button from "../common/Button.svelte";
     import BookGrid from "./BookGrid.svelte";
     import { httpGet } from "../common/api.js";
