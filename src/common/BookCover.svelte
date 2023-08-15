@@ -1,5 +1,10 @@
 <script>
-    export let book ={}
+    import { createEventDispatcher } from "svelte";
+    import { links } from 'svelte-routing';
+    export let book ={};
+    export let interactive = false;
+
+    // const dispatch = createEventDispatcher();
 
     function isValidUrl(url) {
         return url && /http.+\.(jpg|png|gif)$/.test(url);
@@ -93,11 +98,27 @@
     margin-left: calc(10% + var(--spacingSmall));
   }
 </style>
-
-<a href='#' class="book book--interactive book--variation-{book.variation} {isValidUrl(book.cover) ? 'book--cover' : 'book--no--cover'}">
-    <span class="cover" style={isValidUrl(book.cover) ? 'background-image:url' + book.cover + ')' : ''}>
-        <span class="title"> {book.title || ''}</span>
-        <span class="author">{book.author || ''}</span>
-    </span>
-
-</a>
+{#if interactive}
+  <a href={'/books/' + book.id} 
+    use:links
+    class="book book--interactive book--variation-{book.variation} {isValidUrl(book.cover) ? 'book--cover' : 'book--no--cover'}"
+    >
+      <span class="cover" style={isValidUrl(book.cover) ? 'background-image:url' + book.cover + ')' : ''}>
+          <span class="title"> {book.title || ''}</span>
+          <span class="author">{book.author || ''}</span>
+      </span>
+  </a>
+{:else}
+  <div
+  class="book book--variation-{book.variation}
+  {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}">
+    <div
+      class="cover"
+      style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
+      <header>
+        <h2 class="title">{book.title || ''}</h2>
+      </header>
+      <div class="author">{book.author || ''}</div>
+    </div>
+  </div>
+{/if}
