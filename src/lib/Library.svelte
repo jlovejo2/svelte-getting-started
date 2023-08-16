@@ -42,6 +42,6 @@
         This is a library for the people. Welcome.  Read the books here. BE INSPIRED. Go home, and share them with your family.
     </p>
 
-    <Button>+ Add Book</Button>
+    <Button to="/create">+ Add Book</Button>
 
     <BookGrid books={books}/>
