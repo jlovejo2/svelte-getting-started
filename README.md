@@ -2,6 +2,9 @@
 
 ---
 
+# Class I watched to make this
+- svelte-getting-started by Jake Trent on pluralsight
+
 # svelte app
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
