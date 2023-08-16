@@ -42,6 +42,15 @@
       "about": "Man hunts whale with a vengeance. In the end, he's the last man stand. I guess he won.",
       "variation": 1,
       "favorite": true
+    },
+    {
+      "title": "Accomplishing the Impossible",
+      "author": "Eddie Lovejoy",
+      "cover": "https://i.imgur.com/k8HgxX2.jpeg",
+      "about": "Great series for the fantasy fan tired of knights and dragons and the like. There are four books out right now with more coming. Humankind was driven to the edge of extinction when the corelings first began rising from the center of the earth each night. Near invincible demons of incredible speed and strength, humanity's only protection against the fearsome beasts  are wards, but wards fail and humanity's spirit has been broken. Hope is rekindled when Arlen Bales, a young man who refuses to yield to the night, rediscovers the ancient fighting wards.",
+      "variation": 1,
+      "favorite": false,
+      "id": 6
     }
   ]
 }

@@ -1,18 +1,42 @@
 <script>
+  import { navigate } from "svelte-routing";
     import BackButtonRow from "../common/BackButtonRow.svelte";
     import BookCover from "../common/BookCover.svelte";
     import Button from "../common/Button.svelte";
     import Header from "../common/Header.svelte";
     import { httpPost } from "../common/api.js";
+    import TextInput from "./TextInput.svelte";
 
     let title = "";
+    let author = "";
+    let cover = "";
+    let about = "";
 
-    function handleInput(evt) {
-        title = evt.target.value;
-    }
+    $: book = {title, author, cover, about};
 
     // reactive statement, always label it with $:, code after the : is rerun whenever variable specified changes
     // $: console.log({title})
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    async function handleSubmit(evt) {
+        const newBook = {
+            ...book,
+            variation: getRandomInt(0,2),
+            favorite: false
+        }
+
+      const { ok } = await httpPost('/', newBook);
+
+      if (ok) {
+        navigate("/")
+      }
+    }
+
+
   </script>
   
   <style>
@@ -43,17 +67,21 @@
   
   <Header element="h1" size="large">Create</Header>
   
-  <form>
+  <form on:submit|preventDefault={handleSubmit}>
     <div class="fields">
-        <label>
-            <span>Title</span>
-            <input type="text" on:input={handleInput} value={title}/>
-        </label>
+        <TextInput label="Title" bind:value={title} />
+        <TextInput label="Author" bind:value={author} />
+        <TextInput label="Cover URL" bind:value={cover} />
+        <TextInput label="About" bind:value={about} multiline/>
+        <div>
+            <Button>Save</Button>
+        </div>
     </div>
   
     <div>
       <Header>Preview</Header>
       <div class="preview">
+        <BookCover {book}/>
       </div>
     </div>
   </form>
